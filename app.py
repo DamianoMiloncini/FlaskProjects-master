@@ -149,6 +149,12 @@ def fan_status():
     fan_is_on = GPIO.input(Motor1) == GPIO.HIGH
     return jsonify({'status': 'ON' if fan_is_on else 'OFF'})
 
+@app.route('/fan_status')
+def fan_status():
+    fan_is_on = GPIO.input(Motor1) == GPIO.HIGH
+    return {'status': 'ON' if fan_is_on else 'OFF'}
+
+
 if __name__ == '__main__':
     try:
         app.run(host='0.0.0.0', port=5500, debug=True)
