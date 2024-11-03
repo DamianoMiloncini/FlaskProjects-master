@@ -134,6 +134,12 @@ def home():
 
     return render_template('main.html', temperature=current_temp, humidity=current_humidity)  # send this to the html so that we can display the data
 
+@app.route('/fan_status')
+def fan_status():
+    fan_is_on = GPIO.input(Motor1) == GPIO.HIGH
+    return {'status': 'ON' if fan_is_on else 'OFF'}
+
+
 if __name__ == '__main__':
     try:
         app.run(host='0.0.0.0', port=5500, debug=True)
