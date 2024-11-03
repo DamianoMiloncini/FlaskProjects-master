@@ -1,0 +1,196 @@
+<html>
+    <head> 
+        <link rel="stylesheet" href="{{ url_for('static', filename='styling.css') }}">
+
+    </head>
+
+    <body>
+      
+
+        <div class="container">
+            <div class="app-container">
+              <div class="app-top-bar">
+                <button class="button button-small">
+                  <i class="fas fa-chevron-left"></i>
+                </button>
+                <h1 class="app-heading">IoT Dashboard</h1>
+              </div>
+              <div class="app-content">
+                <!-- <button class="button button-block">
+                  <span class="subtle">Period</span> <span>Last 30 days</span> <div class="button button-small"><i class="fas fa-chevron-right"></i></div>
+                </button> -->
+                <div class="flex-button-container">
+                  <button class="button button-large">
+                    <!-- <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="snowflake" class="color-cool" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M440.1 355.2l-39.2-23 34.1-9.3c8.4-2.3 13.4-11.1 11.1-19.6l-4.1-15.5c-2.2-8.5-10.9-13.6-19.3-11.3L343 298.2 271.2 256l71.9-42.2 79.7 21.7c8.4 2.3 17-2.8 19.3-11.3l4.1-15.5c2.2-8.5-2.7-17.3-11.1-19.6l-34.1-9.3 39.2-23c7.5-4.4 10.1-14.2 5.8-21.9l-7.9-13.9c-4.3-7.7-14-10.3-21.5-5.9l-39.2 23 9.1-34.7c2.2-8.5-2.7-17.3-11.1-19.6l-15.2-4.1c-8.4-2.3-17 2.8-19.3 11.3l-21.3 81-71.9 42.2v-84.5L306 70.4c6.1-6.2 6.1-16.4 0-22.6l-11.1-11.3c-6.1-6.2-16.1-6.2-22.2 0l-24.9 25.4V16c0-8.8-7-16-15.7-16h-15.7c-8.7 0-15.7 7.2-15.7 16v46.1l-24.9-25.4c-6.1-6.2-16.1-6.2-22.2 0L142.1 48c-6.1 6.2-6.1 16.4 0 22.6l58.3 59.3v84.5l-71.9-42.2-21.3-81c-2.2-8.5-10.9-13.6-19.3-11.3L72.7 84c-8.4 2.3-13.4 11.1-11.1 19.6l9.1 34.7-39.2-23c-7.5-4.4-17.1-1.8-21.5 5.9l-7.9 13.9c-4.3 7.7-1.8 17.4 5.8 21.9l39.2 23-34.1 9.1c-8.4 2.3-13.4 11.1-11.1 19.6L6 224.2c2.2 8.5 10.9 13.6 19.3 11.3l79.7-21.7 71.9 42.2-71.9 42.2-79.7-21.7c-8.4-2.3-17 2.8-19.3 11.3l-4.1 15.5c-2.2 8.5 2.7 17.3 11.1 19.6l34.1 9.3-39.2 23c-7.5 4.4-10.1 14.2-5.8 21.9L10 391c4.3 7.7 14 10.3 21.5 5.9l39.2-23-9.1 34.7c-2.2 8.5 2.7 17.3 11.1 19.6l15.2 4.1c8.4 2.3 17-2.8 19.3-11.3l21.3-81 71.9-42.2v84.5l-58.3 59.3c-6.1 6.2-6.1 16.4 0 22.6l11.1 11.3c6.1 6.2 16.1 6.2 22.2 0l24.9-25.4V496c0 8.8 7 16 15.7 16h15.7c8.7 0 15.7-7.2 15.7-16v-46.1l24.9 25.4c6.1 6.2 16.1 6.2 22.2 0l11.1-11.3c6.1-6.2 6.1-16.4 0-22.6l-58.3-59.3v-84.5l71.9 42.2 21.3 81c2.2 8.5 10.9 13.6 19.3 11.3L375 428c8.4-2.3 13.4-11.1 11.1-19.6l-9.1-34.7 39.2 23c7.5 4.4 17.1 1.8 21.5-5.9l7.9-13.9c4.6-7.5 2.1-17.3-5.5-21.7z"></path></svg> -->
+                    <h3 class="app-heading">Temperature</h3>
+                    <br>
+                    
+                    <!-- Gauge -->
+                    <div id="gauge">
+                      <div id="major-ticks">
+                          <span>10℃</span>
+                          <span>20℃</span>
+                          <span>30℃</span>
+                      </div>
+                      <div id="minor-ticks">
+                          <span title="--i:1"></span>
+                          <span title="--i:2"></span>
+                          <span title="--i:3"></span>
+                          <span title="--i:4"></span>
+                          <span title="--i:5"></span>
+                          <span title="--i:6"></span>
+                          <span title="--i:7"></span>
+                          <span title="--i:8"></span>
+                          <span title="--i:9"></span>
+                          <span title="--i:10"></span>
+                          <span title="--i:11"></span>
+                          <span title="--i:12"></span>
+                          <span title="--i:13"></span>
+                          <span title="--i:14"></span>
+                          <span title="--i:15"></span>
+                          <span title="--i:16"></span>
+                          <span title="--i:17"></span>
+                          <span title="--i:18"></span>
+                          <span title="--i:19"></span>
+                          <span title="--i:20"></span>
+                      </div>
+                      <div id="minor-ticks-bottom-mask"></div>
+                      <div id="bottom-circle"></div>
+                      <svg  id="SVGTemperature" version="1.1" baseProfile="full" width="190" height="190" xmlns="http://www.w3.org/2000/svg">
+                          <linearGradient id="gradient" x1="0" x2="1" y1="0" y2="0">
+                              <stop offset="0%" stop-color="#b96e85"/>
+                              <stop offset="100%" stop-color="#ae69bb"/>
+                          </linearGradient>
+                          <path d="M5 95 A80 80 0 0 1 185 95" stroke=url(#gradient) fill="none" stroke-width="10"
+                          stroke-linecap="round" stroke-dasharray="0 282.78"/>
+                      </svg>
+                      <div id="center-circle">
+                          <span id="temperature">{{temperature}} °C</span>
+                      </div>
+                    </div>
+                    <label id="temperatureText">Normal</label>
+                </button>
+                
+
+                  <button class="button button-large">
+                    <!-- <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="fire-alt" class="color-warm" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M323.56 51.2c-20.8 19.3-39.58 39.59-56.22 59.97C240.08 73.62 206.28 35.53 168 0 69.74 91.17 0 209.96 0 281.6 0 408.85 100.29 512 224 512s224-103.15 224-230.4c0-53.27-51.98-163.14-124.44-230.4zm-19.47 340.65C282.43 407.01 255.72 416 226.86 416 154.71 416 96 368.26 96 290.75c0-38.61 24.31-72.63 72.79-130.75 6.93 7.98 98.83 125.34 98.83 125.34l58.63-66.88c4.14 6.85 7.91 13.55 11.27 19.97 27.35 52.19 15.81 118.97-33.43 153.42z"></path></svg> -->
+                    <h3 class="app-heading">Humidity</h3>
+                    
+                    <!-- Humidity -->
+                    <div id="gauge">
+                      <div id="major-ticks">
+                          <span>0%</span>
+                          <span>40%</span>
+                          <span>80%</span>
+                      </div>
+                      <div id="minor-ticks">
+                          <span title="--i:1"></span>
+                          <span title="--i:2"></span>
+                          <span title="--i:3"></span>
+                          <span title="--i:4"></span>
+                          <span title="--i:5"></span>
+                          <span title="--i:6"></span>
+                          <span title="--i:7"></span>
+                          <span title="--i:8"></span>
+                          <span title="--i:9"></span>
+                          <span title="--i:10"></span>
+                          <span title="--i:11"></span>
+                          <span title="--i:12"></span>
+                          <span title="--i:13"></span>
+                          <span title="--i:14"></span>
+                          <span title="--i:15"></span>
+                          <span title="--i:16"></span>
+                          <span title="--i:17"></span>
+                          <span title="--i:18"></span>
+                          <span title="--i:19"></span>
+                          <span title="--i:20"></span>
+                      </div>
+                      <div id="minor-ticks-bottom-mask"></div>
+                      <div id="bottom-circle"></div>
+                      <svg  id="SVGHumidity" version="1.1" baseProfile="full" width="190" height="190" xmlns="http://www.w3.org/2000/svg">
+                          <linearGradient id="gradient" x1="0" x2="1" y1="0" y2="0">
+                              <stop offset="0%" stop-color="#b96e85"/>
+                              <stop offset="100%" stop-color="#ae69bb"/>
+                          </linearGradient>
+                          <path d="M5 95 A80 80 0 0 1 185 95" stroke=url(#gradient) fill="none" stroke-width="10"
+                          stroke-linecap="round" stroke-dasharray="0 282.78"/>
+                      </svg>
+                      <div id="center-circle">
+                        <span id="humidity">{{humidity}} %</span>
+                      </div>
+                    </div>
+                    <label id="humidityText">Normal</label>
+                    
+
+                  </button>
+                </div>
+                <button class="button button-link">
+                  Fan
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <script>
+            const tempLabel = document.getElementById("temperatureText");
+            const arc = document.querySelector("#SVGTemperature path");
+            const temperatureElement = document.querySelector("#temperature");
+        
+            // Extract the temperature value from the span's text content
+            const fixedTemperatureValue = parseFloat(temperatureElement.textContent); // Removes "°C" and converts to a number
+            console.log(fixedTemperatureValue);
+
+            if (fixedTemperatureValue <= 10) {
+              tempLabel.textContent = 'Cold';
+            }
+            if(fixedTemperatureValue >= 24){
+              tempLabel.textContent = 'Hot - Check email to enable fan';
+            }
+            else {
+              tempLabel.textContent = 'Normal';
+            }
+        
+            // Update temperature display (if needed)
+            temperatureElement.textContent = `${fixedTemperatureValue} °C`;
+        
+            // Calculate and apply stroke dash array based on fixed temperature value
+            const arc_length = arc.getTotalLength();
+            const min = 0; // Replace with the minimum temperature value in the previous range, if needed
+            const max = 30; // Replace with the maximum temperature value in the previous range, if needed
+            const step = arc_length / (max - min);
+            const value = (fixedTemperatureValue - min) * step;
+            arc.style.strokeDasharray = `${value} ${arc_length - value}`;
+
+            // HUMIDITY
+            const humidLabel = document.getElementById("#humidityText");
+            const humidityElement = document.querySelector("#humidity");
+
+            // Convert the humidity text to a number, removing the percentage symbol
+            const fixedHumidityValue = parseFloat(humidityElement.textContent.replace('%', ''));
+            console.log(fixedHumidityValue);
+
+            if (fixedHumidityValue <= 30) {
+              humidLabel.textContent = 'Dry';
+            }
+            if(fixedHumidityValue >= 65){
+              humidLabel.textContent = 'Very Humid';
+            }
+
+            // Update humidity display (if needed)
+            humidityElement.textContent = `${fixedHumidityValue} %`;
+
+            // Calculate and apply stroke dash array based on the humidity value
+            const humidityArc = document.querySelector("#SVGHumidity path");
+            const humidityArcLength = humidityArc.getTotalLength();
+            const hMin = 0;
+            const hMax = 80;
+            const hStep = humidityArcLength / (hMax - hMin);
+            const hValue = (fixedHumidityValue - hMin) * hStep;
+            humidityArc.style.strokeDasharray = `${hValue} ${humidityArcLength - hValue}`;
+
+        </script>
+        
+
+    </body>
+    
+</html>
