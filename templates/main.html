@@ -16,9 +16,10 @@
                 <h1 class="app-heading">IoT Dashboard</h1>
               </div>
               <div class="app-content">
-                <!-- <button class="button button-block">
-                  <span class="subtle">Period</span> <span>Last 30 days</span> <div class="button button-small"><i class="fas fa-chevron-right"></i></div>
-                </button> -->
+                <button class="button button-block">
+                  <span class="subtle">Date</span> <span id="currentDate"></span>
+                </button>
+                <br>
                 <div class="flex-button-container">
                   <button class="button button-large">
                     <!-- <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="snowflake" class="color-cool" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M440.1 355.2l-39.2-23 34.1-9.3c8.4-2.3 13.4-11.1 11.1-19.6l-4.1-15.5c-2.2-8.5-10.9-13.6-19.3-11.3L343 298.2 271.2 256l71.9-42.2 79.7 21.7c8.4 2.3 17-2.8 19.3-11.3l4.1-15.5c2.2-8.5-2.7-17.3-11.1-19.6l-34.1-9.3 39.2-23c7.5-4.4 10.1-14.2 5.8-21.9l-7.9-13.9c-4.3-7.7-14-10.3-21.5-5.9l-39.2 23 9.1-34.7c2.2-8.5-2.7-17.3-11.1-19.6l-15.2-4.1c-8.4-2.3-17 2.8-19.3 11.3l-21.3 81-71.9 42.2v-84.5L306 70.4c6.1-6.2 6.1-16.4 0-22.6l-11.1-11.3c-6.1-6.2-16.1-6.2-22.2 0l-24.9 25.4V16c0-8.8-7-16-15.7-16h-15.7c-8.7 0-15.7 7.2-15.7 16v46.1l-24.9-25.4c-6.1-6.2-16.1-6.2-22.2 0L142.1 48c-6.1 6.2-6.1 16.4 0 22.6l58.3 59.3v84.5l-71.9-42.2-21.3-81c-2.2-8.5-10.9-13.6-19.3-11.3L72.7 84c-8.4 2.3-13.4 11.1-11.1 19.6l9.1 34.7-39.2-23c-7.5-4.4-17.1-1.8-21.5 5.9l-7.9 13.9c-4.3 7.7-1.8 17.4 5.8 21.9l39.2 23-34.1 9.1c-8.4 2.3-13.4 11.1-11.1 19.6L6 224.2c2.2 8.5 10.9 13.6 19.3 11.3l79.7-21.7 71.9 42.2-71.9 42.2-79.7-21.7c-8.4-2.3-17 2.8-19.3 11.3l-4.1 15.5c-2.2 8.5 2.7 17.3 11.1 19.6l34.1 9.3-39.2 23c-7.5 4.4-10.1 14.2-5.8 21.9L10 391c4.3 7.7 14 10.3 21.5 5.9l39.2-23-9.1 34.7c-2.2 8.5 2.7 17.3 11.1 19.6l15.2 4.1c8.4 2.3 17-2.8 19.3-11.3l21.3-81 71.9-42.2v84.5l-58.3 59.3c-6.1 6.2-6.1 16.4 0 22.6l11.1 11.3c6.1 6.2 16.1 6.2 22.2 0l24.9-25.4V496c0 8.8 7 16 15.7 16h15.7c8.7 0 15.7-7.2 15.7-16v-46.1l24.9 25.4c6.1 6.2 16.1 6.2 22.2 0l11.1-11.3c6.1-6.2 6.1-16.4 0-22.6l-58.3-59.3v-84.5l71.9 42.2 21.3 81c2.2 8.5 10.9 13.6 19.3 11.3L375 428c8.4-2.3 13.4-11.1 11.1-19.6l-9.1-34.7 39.2 23c7.5 4.4 17.1 1.8 21.5-5.9l7.9-13.9c4.6-7.5 2.1-17.3-5.5-21.7z"></path></svg> -->
@@ -124,70 +125,107 @@
 
                   </button>
                 </div>
-                <button class="button button-link">
-                  Fan
+                <br>
+                <button class="button button-large" id="fanButton">
+                  <h3 class = "app-heading">Fan Status</h3>
+                  <span id="fanState">Checking...</span>
                 </button>
               </div>
             </div>
           </div>
 
+          
+            <script>
+              // Get the current date
+              const today = new Date();
+              
+              // Format the date as "Weekday, Month Day, Year"
+              const formattedDate = today.toLocaleDateString('en-US', {
+                  weekday: 'long',   // Full weekday name (e.g., Monday)
+                  year: 'numeric',   // Full year (e.g., 2024)
+                  month: 'long',     // Full month name (e.g., October)
+                  day: 'numeric'     // Day of the month (e.g., 20)
+              });
+              
+              // Display the formatted date in the HTML
+              document.getElementById('currentDate').textContent = formattedDate;
+          </script>
+
           <script>
-            const tempLabel = document.getElementById("temperatureText");
-            const arc = document.querySelector("#SVGTemperature path");
-            const temperatureElement = document.querySelector("#temperature");
+            function updateSensorData() {
+                fetch('/sensor_data')
+                .then(response => response.json())
+                .then(data => {
+                    // Get the temperature and humidity elements
+                    const temperatureElement = document.querySelector("#temperature");
+                    const tempLabel = document.getElementById("temperatureText");
+                    const arc = document.querySelector("#SVGTemperature path");
         
-            // Extract the temperature value from the span's text content
-            const fixedTemperatureValue = parseFloat(temperatureElement.textContent); // Removes "°C" and converts to a number
-            console.log(fixedTemperatureValue);
-
-            if (fixedTemperatureValue <= 10) {
-              tempLabel.textContent = 'Cold';
-            }
-            if(fixedTemperatureValue >= 24){
-              tempLabel.textContent = 'Hot - Check email to enable fan';
-            }
-            else {
-              tempLabel.textContent = 'Normal';
+                    const humidityElement = document.querySelector("#humidity");
+                    const humidLabel = document.getElementById("humidityText");
+                    const humidityArc = document.querySelector("#SVGHumidity path");
+        
+                    // Update temperature display
+                    const fixedTemperatureValue = parseFloat(data.temperature);
+                    temperatureElement.textContent = `${fixedTemperatureValue} °C`;
+        
+                    if (fixedTemperatureValue <= 10) {
+                        tempLabel.textContent = 'Cold';
+                    } else if (fixedTemperatureValue >= 24) {
+                        tempLabel.textContent = 'Hot - Check email to enable fan';
+                    } else {
+                        tempLabel.textContent = 'Normal';
+                    }
+        
+                    const arc_length = arc.getTotalLength();
+                    const min = 0;
+                    const max = 30;
+                    const step = arc_length / (max - min);
+                    const value = (fixedTemperatureValue - min) * step;
+                    arc.style.strokeDasharray = `${value} ${arc_length - value}`;
+        
+                    // Update humidity display
+                    const fixedHumidityValue = parseFloat(data.humidity);
+                    humidityElement.textContent = `${fixedHumidityValue} %`;
+        
+                    if (fixedHumidityValue <= 30) {
+                        humidLabel.textContent = 'Dry';
+                    } else if (fixedHumidityValue >= 65) {
+                        humidLabel.textContent = 'Very Humid';
+                    } else {
+                        humidLabel.textContent = 'Normal';
+                    }
+        
+                    const humidityArcLength = humidityArc.getTotalLength();
+                    const hMin = 0;
+                    const hMax = 80;
+                    const hStep = humidityArcLength / (hMax - hMin);
+                    const hValue = (fixedHumidityValue - hMin) * hStep;
+                    humidityArc.style.strokeDasharray = `${hValue} ${humidityArcLength - hValue}`;
+                })
+                .catch(error => console.error('Error fetching sensor data:', error));
             }
         
-            // Update temperature display (if needed)
-            temperatureElement.textContent = `${fixedTemperatureValue} °C`;
+            // Set an interval to update sensor data every 5 seconds
+            setInterval(updateSensorData, 1500);
         
-            // Calculate and apply stroke dash array based on fixed temperature value
-            const arc_length = arc.getTotalLength();
-            const min = 0; // Replace with the minimum temperature value in the previous range, if needed
-            const max = 30; // Replace with the maximum temperature value in the previous range, if needed
-            const step = arc_length / (max - min);
-            const value = (fixedTemperatureValue - min) * step;
-            arc.style.strokeDasharray = `${value} ${arc_length - value}`;
+            // Initial fetch for immediate display on page load
+            updateSensorData();
+        </script>
+        
 
-            // HUMIDITY
-            const humidLabel = document.getElementById("#humidityText");
-            const humidityElement = document.querySelector("#humidity");
-
-            // Convert the humidity text to a number, removing the percentage symbol.
-            const fixedHumidityValue = parseFloat(humidityElement.textContent.replace('%', ''));
-            console.log(fixedHumidityValue);
-
-            if (fixedHumidityValue <= 30) {
-              humidLabel.textContent = 'Dry';
-            }
-            if(fixedHumidityValue >= 65){
-              humidLabel.textContent = 'Very Humid';
-            }
-
-            // Update humidity display (if needed)
-            humidityElement.textContent = `${fixedHumidityValue} %`;
-
-            // Calculate and apply stroke dash array based on the humidity value
-            const humidityArc = document.querySelector("#SVGHumidity path");
-            const humidityArcLength = humidityArc.getTotalLength();
-            const hMin = 0;
-            const hMax = 80;
-            const hStep = humidityArcLength / (hMax - hMin);
-            const hValue = (fixedHumidityValue - hMin) * hStep;
-            humidityArc.style.strokeDasharray = `${hValue} ${humidityArcLength - hValue}`;
-
+        <script>
+          function fetchFanStatus() {
+            fetch('/fan_status')
+            .then(response => response.json())
+            .then(data => {
+              const fanState = document.getElementById('fanState');
+              fanState.textContent = data.status;
+              fanState.style.color = data.status === 'ON' ? 'green' : 'red';
+            })
+            .catch(error => console.error('Error fetching fan status: ', error));
+          }
+          setInterval(fetchFanStatus, 1500);
         </script>
         
 
