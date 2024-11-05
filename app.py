@@ -82,7 +82,7 @@ def monitor_temperature():
         if readValue == dht.DHTLIB_OK:
             current_temp = dht.temperature
             with alert_lock:
-                if current_temp > 24 and not alert_sent:
+                if current_temp > 20 and not alert_sent:
                     # Send email if the temperature is too high and no alert has been sent
                     send_email(
                         sender_email,
@@ -101,12 +101,12 @@ def monitor_temperature():
                         GPIO.output(Motor1, GPIO.HIGH)
                         GPIO.output(Motor2, GPIO.LOW)
                         GPIO.output(Motor3, GPIO.HIGH)
-                        time.sleep(10)
+                        time.sleep(15)
                         GPIO.output(Motor1, GPIO.LOW)
                     else:
                         print('No response or fan off.')
 
-                elif current_temp <= 24:
+                elif current_temp <= 20:
                     # Reset alert if temperature drops below threshold
                     alert_sent = False
         time.sleep(10)  # Interval to check temperature
@@ -149,10 +149,6 @@ def fan_status():
     fan_is_on = GPIO.input(Motor1) == GPIO.HIGH
     return jsonify({'status': 'ON' if fan_is_on else 'OFF'})
 
-@app.route('/fan_status')
-def fan_status():
-    fan_is_on = GPIO.input(Motor1) == GPIO.HIGH
-    return {'status': 'ON' if fan_is_on else 'OFF'}
 
 
 if __name__ == '__main__':
